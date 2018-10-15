@@ -63,17 +63,7 @@
 			          Header="Shapes"
 			          Height="25"
 			          Width="50"/>
-			<Grid
-				Width="85"
-				MouseDown="SetFillColor">
-				<TextBlock
-					Text="Background"/>
-				<Rectangle x:Name="ColorPickerFill"
-				           HorizontalAlignment="Right"
-				           VerticalAlignment="Center"
-				           Width="15"
-				           Height="15"/>
-			</Grid>
+			
 			<Grid
 				Width="55"
 				MouseDown="SetBorderColor">
@@ -103,7 +93,6 @@
 	<Window.CommandBindings>
 		<CommandBinding Command="{x:Static local:MainWindow.SetDrawingModeCommand}" Executed="SetDrawingMode"/>
 		<CommandBinding Command="{x:Static local:MainWindow.SetMovingModeCommand}" Executed="SetMovingMode"/>
-		<CommandBinding Command="{x:Static local:MainWindow.SetFillColorCommand}" Executed="SetFillColor"/>
 		<CommandBinding Command="{x:Static local:MainWindow.SetStrokeColorCommand}" Executed="SetBorderColor"/>
 		<CommandBinding Command="{x:Static local:MainWindow.NewDialogCommand}" Executed="NewButton_Click"/>
 		<CommandBinding Command="{x:Static local:MainWindow.SaveDialogCommand}" Executed="SaveButton_Click"/>

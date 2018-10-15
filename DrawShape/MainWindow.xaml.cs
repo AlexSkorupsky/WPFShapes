@@ -103,8 +103,7 @@ namespace DrawShape
 			_currentChosenHexagonId = -1;
 			_currentDrawingHexagon = new List<Point>();
 			_currentFillColor = new SolidColorBrush(Colors.Black);
-			ColorPickerFill.Fill = _currentFillColor;
-			_currentBorderColor = new SolidColorBrush(Colors.Black);
+            _currentBorderColor = new SolidColorBrush(Colors.Black);
 			ColorPickerBorder.Fill = _currentBorderColor;
 			StartDrawingTicker();
 			_mouseLoc = new Point();
@@ -226,16 +225,6 @@ namespace DrawShape
 			{
 				FormBl.MessageBoxFatal(exc.Message);
 			}
-		}
-
-		/// <summary>
-		/// Sets selected filling colour from <see cref="System.Windows.Forms.ColorDialog"/>
-		/// </summary>
-		/// <param name="sender">The Rectangle that the action is for.</param>
-		/// <param name="e">Arguments that the implementor of this event may find useful.</param>
-		private void SetFillColor(object sender, RoutedEventArgs e)
-		{
-			FormBl.SetColor(ref _currentFillColor, ref ColorPickerFill);
 		}
 
 		/// <summary>
