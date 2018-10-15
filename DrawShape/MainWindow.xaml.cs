@@ -384,7 +384,6 @@ namespace DrawShape
 					var hexagon = new Hexagon(
 						$"Hexagon_{_currentChosenHexagonId + 1}",
 						_currentDrawingHexagon,
-						_currentFillColor,
 						_currentBorderColor).ToPolygon();
 					_currentChosenHexagonId++;
 					_pictureIsSaved = false;

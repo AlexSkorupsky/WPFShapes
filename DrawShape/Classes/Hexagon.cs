@@ -58,60 +58,10 @@ namespace DrawShape.Classes
 		}
 		
 		/// <summary>
-		/// Class to set colour of hexagon.
-		/// </summary>
-		public class FillColor
-		{
-			/// <summary>
-			/// Gets/Sets an amount of red colour in RGB specification.
-			/// </summary>
-			[XmlAttribute]
-			public int R { get; set; }
-
-			/// <summary>
-			/// Gets/Sets an amount of green colour in RGB specification.
-			/// </summary>
-			[XmlAttribute]
-			public int G { get; set; }
-
-			/// <summary>
-			/// Gets/Sets an amount of blue colour in RGB specification.
-			/// </summary>
-			[XmlAttribute]
-			public int B { get; set; }
-
-			/// <summary>
-			/// Function to set colour of the hexagon.
-			/// </summary>
-			public FillColor()
-			{
-			}
-
-			/// <summary>
-			/// Function to set colour of the hexagon using rgb specification.
-			/// </summary>
-			/// <param name="r">Amount of red.</param>
-			/// <param name="g">Amount of green.</param>
-			/// <param name="b">Amount of blue.</param>
-			public FillColor(int r, int g, int b)
-			{
-				R = r;
-				G = g;
-				B = b;
-			}
-		}
-
-		/// <summary>
 		/// Gets/Sets a name of hexagon.
 		/// </summary>
 		[XmlAttribute]
 		public string Name { get; set; }
-
-		/// <summary>
-		/// Gets/Sets a colour of the hexagon.
-		/// </summary>
-		[XmlElement]
-		public FillColor ColorFill { get; set; }
 
 		/// <summary>
 		/// Gets/Sets a colour of the hexagon border.
@@ -139,7 +89,7 @@ namespace DrawShape.Classes
 		/// <param name="points">Points of hexagon vertices.</param>
 		/// <param name="fillBrush">Colour of hexagon.</param>
 		/// <param name="borderBrush">Colour of hexagon border.</param>
-		public Hexagon(string name, List<Point> points, Brush fillBrush, Brush borderBrush)
+		public Hexagon(string name, List<Point> points, Brush borderBrush)
 		{
 			if (points == null)
 			{
@@ -153,8 +103,6 @@ namespace DrawShape.Classes
 			
 			Name = name;
 			Points = points.ToArray();
-			var colorFill = ((SolidColorBrush)fillBrush).Color;
-			ColorFill = new FillColor(colorFill.R, colorFill.G, colorFill.B);
 			var colorBorder = ((SolidColorBrush)borderBrush).Color;
 			ColorBorder = new BorderColor(colorBorder.R, colorBorder.G, colorBorder.B);
 		}
@@ -183,7 +131,7 @@ namespace DrawShape.Classes
 			
 			polygon.Stroke = new SolidColorBrush(Color.FromRgb((byte)ColorBorder.R, (byte)ColorBorder.G, (byte)ColorBorder.B));
 			polygon.StrokeThickness = 2;
-			polygon.Fill = new SolidColorBrush(Color.FromRgb((byte)ColorFill.R, (byte)ColorFill.G, (byte)ColorFill.B));
+			
 			polygon.Name = Name;
 			return polygon;
 		}
@@ -200,7 +148,7 @@ namespace DrawShape.Classes
 				points.Add(new Point(point.X, point.Y));
 			}
 
-			return new Hexagon(polygon.Name, points, polygon.Fill, polygon.Stroke);
+			return new Hexagon(polygon.Name, points, polygon.Stroke);
 		}
 	}
 }
