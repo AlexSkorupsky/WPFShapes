@@ -13,9 +13,9 @@ namespace DrawShape.Test.Classes
 	{
 		[Theory]
 		[MemberData(nameof(ConstructorData.SuccessData), MemberType = typeof(ConstructorData))]
-		public void TestConstructor(string inputName, List<Point> inputPoints, byte r, byte g, byte b, Hexagon expectedHexagon)
+		public void TestConstructor(string inputName, List<Point> inputPoints, byte r, byte g, byte b, BrokenLine expectedHexagon)
 		{
-			var actualHexagon = new Hexagon(inputName, inputPoints, new SolidColorBrush(Color.FromRgb(r, g, b)), new SolidColorBrush(Color.FromRgb(r, g, b)));
+			var actualHexagon = new BrokenLine(inputName, inputPoints, new SolidColorBrush(Color.FromRgb(r, g, b)), new SolidColorBrush(Color.FromRgb(r, g, b)));
 			Assert.Equal(expectedHexagon.Name, actualHexagon.Name);
 			Assert.Equal(expectedHexagon.ColorFill.R, actualHexagon.ColorFill.R);
 			Assert.Equal(expectedHexagon.ColorFill.G, actualHexagon.ColorFill.G);
@@ -36,13 +36,13 @@ namespace DrawShape.Test.Classes
 		[MemberData(nameof(ConstructorData.ThrowsInvalidDataExcpetionData), MemberType = typeof(ConstructorData))]
 		public void TestConstructorThrowsInvalidDataExcpetion(List<Point> points)
 		{
-			Assert.Throws<InvalidDataException>(() => new Hexagon("Hexagon", points, Brushes.Violet, Brushes.Violet));
+			Assert.Throws<InvalidDataException>(() => new BrokenLine("Hexagon", points, Brushes.Violet, Brushes.Violet));
 		}
 
 		[Fact]
 		public void TestConstructorThrowsNullReferenceExcpetion()
 		{
-			Assert.Throws<NullReferenceException>(() => new Hexagon("Hexagon", null, Brushes.Violet, Brushes.Violet));
+			Assert.Throws<NullReferenceException>(() => new BrokenLine("Hexagon", null, Brushes.Violet, Brushes.Violet));
 		}
 
 		private class ConstructorData
@@ -57,7 +57,7 @@ namespace DrawShape.Test.Classes
 						new Point(7, 8), new Point(9, 10), new Point(11, 12)
 					},
 					(byte)1, (byte)1, (byte)1,
-					new Hexagon(
+					new BrokenLine(
                         "Hexagon 1",
                         new List<Point>
 					    {
@@ -75,7 +75,7 @@ namespace DrawShape.Test.Classes
 						new Point(6, 5), new Point(4, 3), new Point(2, 1)   
 					},
 					(byte)255, (byte)255, (byte)255,
-					new Hexagon(
+					new BrokenLine(
                         "Hexagon 2",
                         new List<Point>
 					    {
@@ -93,7 +93,7 @@ namespace DrawShape.Test.Classes
 						new Point(7.7, 8.8), new Point(9.9, 10.10), new Point(11.11, 12.12)   
 					},
 					(byte)0, (byte)111, (byte)222,
-					new Hexagon(
+					new BrokenLine(
                         "Super Hexagon",
                         new List<Point>
 					    {
@@ -140,8 +140,8 @@ namespace DrawShape.Test.Classes
 		[Fact]
 		public void TestToPolygonThrows()
 		{
-			Assert.Throws<NullReferenceException>(() => new Hexagon().ToPolygon());
-			Assert.Throws<InvalidDataException>(() => new Hexagon("name", new List<Point>(), new SolidColorBrush(), new SolidColorBrush()).ToPolygon());
+			Assert.Throws<NullReferenceException>(() => new BrokenLine().ToPolygon());
+			Assert.Throws<InvalidDataException>(() => new BrokenLine("name", new List<Point>(), new SolidColorBrush(), new SolidColorBrush()).ToPolygon());
 		}
 	}
 }

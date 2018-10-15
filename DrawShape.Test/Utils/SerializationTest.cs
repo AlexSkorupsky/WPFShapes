@@ -14,9 +14,9 @@ namespace DrawShape.Test.Utils
 	{
 		[Theory]
 		[MemberData(nameof(SerializationData.HexagonsData), MemberType = typeof(SerializationData))]
-		public void TestSerializeHexagons(List<Hexagon> inputHexagons, string file, string expected)
+		public void TestSerializeHexagons(List<BrokenLine> inputHexagons, string file, string expected)
 		{
-			Serialization.SerializeHexagons(file, inputHexagons);
+			Serialization.SerializeBrokenLines(file, inputHexagons);
 			var actual = File.ReadAllText(file);
 			File.Delete(file);
 			Assert.Equal(expected, actual);
@@ -24,10 +24,10 @@ namespace DrawShape.Test.Utils
 		
 		[Theory]
 		[MemberData(nameof(SerializationData.HexagonsData), MemberType = typeof(SerializationData))]
-		public void TestDeserializeHexagons(List<Hexagon> expectedHexagons, string file, string data)
+		public void TestDeserializeHexagons(List<BrokenLine> expectedHexagons, string file, string data)
 		{
 			File.WriteAllText(file, data);
-			var actual = Serialization.DeserializeHexagons(file);
+			var actual = Serialization.DeserializeBrokenLines(file);
 			File.Delete(file);
 			Assert.Equal(expectedHexagons.Count, actual.Count);
 			for (var i = 0; i < actual.Count; i++)
@@ -54,9 +54,9 @@ namespace DrawShape.Test.Utils
 			{
 				new object[]
 				{
-					new List<Hexagon>
+					new List<BrokenLine>
 					{
-						new Hexagon(
+						new BrokenLine(
 							"Hexagon0",
 							new List<Point>
 							{
@@ -69,7 +69,7 @@ namespace DrawShape.Test.Utils
 							},
 							new SolidColorBrush(Color.FromRgb(0, 255, 0)),
 							new SolidColorBrush(Color.FromRgb(255, 0, 0))),
-						new Hexagon(
+						new BrokenLine(
 							"Hexagon0",
 							new List<Point>
 							{
@@ -82,7 +82,7 @@ namespace DrawShape.Test.Utils
 							},
 							new SolidColorBrush(Color.FromRgb(0, 255, 0)),
 							new SolidColorBrush(Color.FromRgb(255, 0, 0))),
-						new Hexagon(
+						new BrokenLine(
 							"Hexagon0",
 							new List<Point>
 							{

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DrawShape.Properties
+namespace WPFShapes.Properties
 {
 
 

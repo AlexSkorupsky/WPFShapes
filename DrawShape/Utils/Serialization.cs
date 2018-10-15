@@ -6,32 +6,32 @@ using DrawShape.Classes;
 
 namespace DrawShape.Utils
 {
-	/// <summary>
-	/// Static class for hexagon serialization.
-	/// </summary>
-	public static class Serialization
+    /// <summary>
+    /// Static class for BrokenLine serialization.
+    /// </summary>
+    public static class Serialization
 	{
-		/// <summary>
-		/// Serializes a list of hexagons to a file.
-		/// </summary>
-		/// <param name="fileName">Path to target file.</param>
-		/// <param name="hexagons">A list of hexagons to serialize.</param>
-		public static void SerializeHexagons(string fileName, List<Hexagon> hexagons)
+        /// <summary>
+        /// Serializes a list of BrokenLines to a file.
+        /// </summary>
+        /// <param name="fileName">Path to target file.</param>
+        /// <param name="brokenLines">A list of BrokenLines to serialize.</param>
+        public static void SerializeBrokenLines(string fileName, List<BrokenLine> brokenLines)
 		{
 			Stream stream = new FileStream(fileName, FileMode.Create);
-			new XmlSerializer(typeof(List<Hexagon>)).Serialize(stream, hexagons);
+			new XmlSerializer(typeof(List<BrokenLine>)).Serialize(stream, brokenLines);
 			stream.Close();
 		}
 
-		/// <summary>
-		/// Deserializes hexagons to a list.
-		/// </summary>
-		/// <param name="fileName">Path to source file.</param>
-		/// <returns>A list of deserialized hexagons.</returns>
-		public static List<Hexagon> DeserializeHexagons(string fileName)
+        /// <summary>
+        /// Deserializes BrokenLines to a list.
+        /// </summary>
+        /// <param name="fileName">Path to source file.</param>
+        /// <returns>A list of deserialized BrokenLines.</returns>
+        public static List<BrokenLine> DeserializeBrokenLines(string fileName)
 		{
 			Stream stream = new FileStream(fileName, FileMode.Open);
-			var result = new XmlSerializer(typeof(List<Hexagon>)).Deserialize(stream) as List<Hexagon>;
+			var result = new XmlSerializer(typeof(List<BrokenLine>)).Deserialize(stream) as List<BrokenLine>;
 			stream.Close();
 			return result;
 		}

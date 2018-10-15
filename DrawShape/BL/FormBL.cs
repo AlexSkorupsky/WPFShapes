@@ -39,10 +39,10 @@ namespace DrawShape.BL
 		/// Function to read hexagons from xml file.
 		/// </summary>
 		/// <returns>Hexagons read.</returns>
-		public static IEnumerable<Hexagon> ReadHexagons()
+		public static IEnumerable<BrokenLine> ReadHexagons()
 		{
 			var ofd = new OpenFileDialog { Filter = @"Xml files (*.xml)|*.xml", DefaultExt = "xml", AddExtension = true };
-			return ofd.ShowDialog() == true ? Serialization.DeserializeHexagons(ofd.FileName) : null;
+			return ofd.ShowDialog() == true ? Serialization.DeserializeBrokenLines(ofd.FileName) : null;
 		}
 
 		/// <summary>
@@ -57,16 +57,16 @@ namespace DrawShape.BL
 				return;
 			}
 
-			var hexagons = new List<Hexagon>();
+			var hexagons = new List<BrokenLine>();
 			foreach (var item in canvas.Children)
 			{
 				if (item is Polygon polygon)
 				{
-					hexagons.Add(Hexagon.FromPolygon(polygon));
+					hexagons.Add(BrokenLine.FromPolygon(polygon));
 				}
 			}
 
-			Serialization.SerializeHexagons(sfd.FileName, hexagons);
+			Serialization.SerializeBrokenLines(sfd.FileName, hexagons);
 		}
 		
 		/// <summary>

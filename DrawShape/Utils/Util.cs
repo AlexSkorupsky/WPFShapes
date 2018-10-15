@@ -14,13 +14,13 @@ namespace DrawShape.Utils
 	/// </summary>
 	public static class Util
 	{
-		/// <summary>
-		/// Function to check if point is in hexagon.
-		/// </summary>
-		/// <param name="point">Point to check.</param>
-		/// <param name="hexagon">Hexagon in which point might be.</param>
-		/// <returns>True if point is located in given hexagon.</returns>
-		public static bool PointIsInHexagon(Point point, Polygon hexagon)
+        /// <summary>
+        /// Function to check if point is in BrokenLine.
+        /// </summary>
+        /// <param name="point">Point to check.</param>
+        /// <param name="brokenLine">BrokenLine in which point might be.</param>
+        /// <returns>True if point is located in given BrokenLine.</returns>
+        public static bool PointIsInBrokenLine(Point point, Polygon brokenLine)
 		{
 			// Create a point for line segment from p to infinite 
 			var extreme = new System.Windows.Point(10000, point.Y);
@@ -33,14 +33,14 @@ namespace DrawShape.Utils
 
 				// Check if the line segment from 'p' to 'extreme' intersects 
 				// with the line segment from 'polygon[i]' to 'polygon[next]' 
-				if (AreSidesIntersected(hexagon.Points[i], hexagon.Points[next], new System.Windows.Point(point.X, point.Y),  extreme))
+				if (AreSidesIntersected(brokenLine.Points[i], brokenLine.Points[next], new System.Windows.Point(point.X, point.Y),  extreme))
 				{
 					// If the point 'p' is colinear with line segment 'i-next', 
 					// then check if it lies on segment. If it lies, return true, 
 					// otherwise false 
-					if (Orientation(hexagon.Points[i], new System.Windows.Point(point.X, point.Y), hexagon.Points[next]) == 0)
+					if (Orientation(brokenLine.Points[i], new System.Windows.Point(point.X, point.Y), brokenLine.Points[next]) == 0)
 					{
-						return OnSegment(hexagon.Points[i], new System.Windows.Point(point.X, point.Y), hexagon.Points[next]);
+						return OnSegment(brokenLine.Points[i], new System.Windows.Point(point.X, point.Y), brokenLine.Points[next]);
 					}
 
 					count++;
@@ -128,18 +128,18 @@ namespace DrawShape.Utils
 
 			return false;
 		}
-		
-		/// <summary>
-		/// Returns an index of a hexagon with specified name.
-		/// </summary>
-		/// <param name="name">Hexagon's name.</param>
-		/// <param name="elements">A list of available hexagons.</param>
-		/// <returns>Index of hexagon.</returns>
-		/// <exception cref="InvalidDataException">Throws if hexagon does not exist.</exception>
-		public static int GetHexagonIdByName(string name, UIElementCollection elements)
+
+        /// <summary>
+        /// Returns an index of a BrokenLine with specified name.
+        /// </summary>
+        /// <param name="name">BrokenLine's name.</param>
+        /// <param name="elements">A list of available BrokenLines.</param>
+        /// <returns>Index of BrokenLine.</returns>
+        /// <exception cref="InvalidDataException">Throws if BrokenLine does not exist.</exception>
+        public static int GetBrokenLineIdByName(string name, UIElementCollection elements)
 		{
-			var hexagons = elements.OfType<Polygon>();
-			var enumerable = hexagons as Polygon[] ?? hexagons.ToArray();
+			var brokenLines = elements.OfType<Polygon>();
+			var enumerable = brokenLines as Polygon[] ?? brokenLines.ToArray();
 			for (var i = 0; i < enumerable.Length; i++)
 			{
 				if (enumerable[i].Name == name)
@@ -148,7 +148,7 @@ namespace DrawShape.Utils
 				}
 			}
 
-			throw new InvalidDataException("hexagon does not exist");
+			throw new InvalidDataException("Broken line does not exist");
 		}
 		
 		/// <summary>

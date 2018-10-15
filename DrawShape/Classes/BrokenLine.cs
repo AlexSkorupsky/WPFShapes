@@ -7,16 +7,16 @@ using System.Collections.Generic;
 
 namespace DrawShape.Classes
 {
-	/// <summary>
-	/// Class to represent a hexagon in two-dimensional space.
-	/// </summary>
-	[Serializable]
-	public class Hexagon
+    /// <summary>
+    /// Class to represent a broken line in two-dimensional space.
+    /// </summary>
+    [Serializable]
+	public class BrokenLine
 	{
-		/// <summary>
-		/// Class to represent a border of hexagon.
-		/// </summary>
-		public class BorderColor
+        /// <summary>
+        /// Class to represent a border of broken line.
+        /// </summary>
+        public class BorderColor
 		{
 			/// <summary>
 			/// Gets/Sets an amount of red colour in RGB specification.
@@ -56,99 +56,92 @@ namespace DrawShape.Classes
 				B = b;
 			}
 		}
-		
-		/// <summary>
-		/// Gets/Sets a name of hexagon.
-		/// </summary>
-		[XmlAttribute]
+
+        /// <summary>
+        /// Gets/Sets a name of broken line.
+        /// </summary>
+        [XmlAttribute]
 		public string Name { get; set; }
 
-		/// <summary>
-		/// Gets/Sets a colour of the hexagon border.
-		/// </summary>
-		[XmlElement]
+        /// <summary>
+        /// Gets/Sets a colour of the broken line border.
+        /// </summary>
+        [XmlElement]
 		public BorderColor ColorBorder { get; set; }
 
-		/// <summary>
-		/// Gets/Sets an array of points of hexagon.
-		/// </summary>
-		[XmlArray]
+        /// <summary>
+        /// Gets/Sets an array of points of broken line.
+        /// </summary>
+        [XmlArray]
 		public Point[] Points { get; set; }
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="Hexagon"/> class.  
+		/// Initializes a new instance of the <see cref="BrokenLine"/> class.  
 		/// </summary>
-		public Hexagon()
+		public BrokenLine()
 		{
 		}
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="Hexagon"/> class. 
-		/// </summary>
-		/// <param name="name">Name of hexagon.</param>
-		/// <param name="points">Points of hexagon vertices.</param>
-		/// <param name="fillBrush">Colour of hexagon.</param>
-		/// <param name="borderBrush">Colour of hexagon border.</param>
-		public Hexagon(string name, List<Point> points, Brush borderBrush)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BrokenLine"/> class. 
+        /// </summary>
+        /// <param name="name">Name of broken line.</param>
+        /// <param name="points">Points of broken line vertices.</param>
+        /// <param name="fillBrush">Colour of broken line.</param>
+        /// <param name="borderBrush">Colour of broken line border.</param>
+        public BrokenLine(string name, List<Point> points, Brush borderBrush)
 		{
 			if (points == null)
 			{
 				throw new NullReferenceException("points are null");
 			}
-			
 			if (points.Count != 6)
 			{
 				throw new InvalidDataException("hexagon requires six points");
 			}
-			
 			Name = name;
 			Points = points.ToArray();
 			var colorBorder = ((SolidColorBrush)borderBrush).Color;
 			ColorBorder = new BorderColor(colorBorder.R, colorBorder.G, colorBorder.B);
 		}
 
-		/// <summary>
-		/// Function to convert hexagon type to polygon type.
-		/// </summary>
-		/// <returns>Hexagon shape of type <see cref="Polygon"/></returns>
-		public Polygon ToPolygon()
+        /// <summary>
+        /// Function to convert broken line type to polygon type.
+        /// </summary>
+        /// <returns>broken line shape of type <see cref="Polygon"/></returns>
+        public Polygon ToPolygon()
 		{
 			if (Points == null)
 			{
 				throw new NullReferenceException("points are null");
 			}
-			
 			if (Points.Length != 6)
 			{
-				throw new InvalidDataException("hexagon requires six points");
+				throw new InvalidDataException("broken line requires six points");
 			}
-
 			var polygon = new Polygon();
 			foreach (var point in Points)
 			{
 				polygon.Points.Add(new System.Windows.Point(point.X, point.Y));
 			}
-			
 			polygon.Stroke = new SolidColorBrush(Color.FromRgb((byte)ColorBorder.R, (byte)ColorBorder.G, (byte)ColorBorder.B));
 			polygon.StrokeThickness = 2;
-			
 			polygon.Name = Name;
 			return polygon;
 		}
 
-		/// <summary>
-		/// Function to convert polygon type to hexagon type.
-		/// </summary>
-		/// <returns>Hexagon shape of type <see cref="Hexagon"/></returns>
-		public static Hexagon FromPolygon(Polygon polygon)
+        /// <summary>
+        /// Function to convert polygon type to broken line type.
+        /// </summary>
+        /// <returns>broken line shape of type <see cref="BrokenLine"/></returns>
+        public static BrokenLine FromPolygon(Polygon polygon)
 		{
 			var points = new List<Point>();
 			foreach (var point in polygon.Points)
 			{
 				points.Add(new Point(point.X, point.Y));
 			}
-
-			return new Hexagon(polygon.Name, points, polygon.Stroke);
+			return new BrokenLine(polygon.Name, points, polygon.Stroke);
 		}
 	}
 }
