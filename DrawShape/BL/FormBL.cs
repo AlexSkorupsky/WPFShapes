@@ -5,8 +5,8 @@ using System.Windows.Shapes;
 using System.Windows.Controls;
 using System.Collections.Generic;
 
-using DrawShape.Utils;
-using DrawShape.Classes;
+using DrawShape.Tools;
+using DrawShape.Entities;
 
 using MessageBox = System.Windows.MessageBox;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
@@ -35,38 +35,38 @@ namespace DrawShape.BL
 			picker.Fill = color;
 		}
 
-		/// <summary>
-		/// Function to read hexagons from xml file.
-		/// </summary>
-		/// <returns>Hexagons read.</returns>
-		public static IEnumerable<BrokenLine> ReadHexagons()
+        /// <summary>
+        /// Function to read broken lines from xml file.
+        /// </summary>
+        /// <returns>BrokenLines read.</returns>
+        public static IEnumerable<BrokenLine> ReadBrokenLines()
 		{
 			var ofd = new OpenFileDialog { Filter = @"Xml files (*.xml)|*.xml", DefaultExt = "xml", AddExtension = true };
 			return ofd.ShowDialog() == true ? Serialization.DeserializeBrokenLines(ofd.FileName) : null;
 		}
 
-		/// <summary>
-		/// Function to save hexagons to xml file.
-		/// </summary>
-		/// <param name="canvas">Canvas from which hexagons are to be saved.</param>
-		public static void SaveHexagons(ref Canvas canvas)
+        /// <summary>
+        /// Function to save BrokenLines to xml file.
+        /// </summary>
+        /// <param name="canvas">Canvas from which BrokenLines are to be saved.</param>
+        public static void SaveBrokenLines(ref Canvas canvas)
 		{
-			var sfd = new SaveFileDialog { Filter = @"Xml files (*.xml)|*.xml", DefaultExt = "xml", FileName = "Rectangles", AddExtension = true };
+			var sfd = new SaveFileDialog { Filter = @"Xml files (*.xml)|*.xml", DefaultExt = "xml", FileName = "BrokenLines", AddExtension = true };
 			if (sfd.ShowDialog() != true)
 			{
 				return;
 			}
 
-			var hexagons = new List<BrokenLine>();
+			var brokenLines = new List<BrokenLine>();
 			foreach (var item in canvas.Children)
 			{
 				if (item is Polygon polygon)
 				{
-					hexagons.Add(BrokenLine.FromPolygon(polygon));
+					brokenLines.Add(BrokenLine.FromPolygon(polygon));
 				}
 			}
 
-			Serialization.SerializeBrokenLines(sfd.FileName, hexagons);
+			Serialization.SerializeBrokenLines(sfd.FileName, brokenLines);
 		}
 		
 		/// <summary>

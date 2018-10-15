@@ -2,9 +2,9 @@
 using System.Xml.Serialization;
 using System.Collections.Generic;
 
-using DrawShape.Classes;
+using DrawShape.Entities;
 
-namespace DrawShape.Utils
+namespace DrawShape.Tools
 {
     /// <summary>
     /// Static class for BrokenLine serialization.

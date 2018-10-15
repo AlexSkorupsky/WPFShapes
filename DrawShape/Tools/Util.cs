@@ -5,9 +5,9 @@ using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Windows.Controls;
 
-using Point = DrawShape.Classes.Point;
+using Point = DrawShape.Entities.Point;
 
-namespace DrawShape.Utils
+namespace DrawShape.Tools
 {
 	/// <summary>
 	/// Utility class.

@@ -5,7 +5,7 @@ using System.Windows.Shapes;
 using System.Xml.Serialization;
 using System.Collections.Generic;
 
-namespace DrawShape.Classes
+namespace DrawShape.Entities
 {
     /// <summary>
     /// Class to represent a broken line in two-dimensional space.

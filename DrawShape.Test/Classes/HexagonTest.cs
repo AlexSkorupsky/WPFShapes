@@ -5,7 +5,7 @@ using System.IO;
 using System.Windows.Media;
 using System.Collections.Generic;
 
-using DrawShape.Classes;
+using DrawShape.Entities;
 
 namespace DrawShape.Test.Classes
 {

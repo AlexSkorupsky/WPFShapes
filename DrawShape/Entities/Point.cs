@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Xml.Serialization;
 
-namespace DrawShape.Classes
+namespace DrawShape.Entities
 {
 	/// <summary>
 	/// Class to represent a point in two-dimensional space.

@@ -9,10 +9,10 @@ using System.Windows.Threading;
 using System.Collections.Generic;
 
 using DrawShape.BL;
-using DrawShape.Utils;
-using DrawShape.Classes;
+using DrawShape.Tools;
+using DrawShape.Entities;
 
-using Point = DrawShape.Classes.Point;
+using Point = DrawShape.Entities.Point;
 
 namespace DrawShape
 {
@@ -27,16 +27,16 @@ namespace DrawShape
 		/// Indicates if current picture is saved or not.
 		/// </summary>
 		private bool pictureIsSaved;
-		
-		/// <summary>
-		/// Holds current chosen hexagon's id.
-		/// </summary>
-		private int currentChosenBrokenLineId;
-		
-		/// <summary>
-		/// Holds current chosen color to fill a hexagon's border.
-		/// </summary>
-		private Brush currentBorderColor;
+
+        /// <summary>
+        /// Holds current chosen broken line's id.
+        /// </summary>
+        private int currentChosenBrokenLineId;
+
+        /// <summary>
+        /// Holds current chosen color to fill a broken line's border.
+        /// </summary>
+        private Brush currentBorderColor;
 		
 		/// <summary>
 		/// Dispatcher timer to draw interactive line on canvas.
@@ -48,10 +48,10 @@ namespace DrawShape
 		/// </summary>
 		private readonly Point mouseLoc;
 
-		/// <summary>
-		/// Holds properties of hexagon that is currently drawn
-		/// </summary>
-		private Polyline expectedBrokenLine;
+        /// <summary>
+        /// Holds properties of broken line that is currently drawn
+        /// </summary>
+        private Polyline expectedBrokenLine;
 
 		/// <summary>
 		/// Holds properties of a line that is currently drawn
@@ -83,7 +83,6 @@ namespace DrawShape
 		/// </summary>
 		public static readonly RoutedCommand SetDrawingModeCommand = new RoutedCommand();
 		public static readonly RoutedCommand SetMovingModeCommand = new RoutedCommand();
-		public static readonly RoutedCommand SetFillColorCommand = new RoutedCommand();
 		public static readonly RoutedCommand SetStrokeColorCommand = new RoutedCommand();
 		public static readonly RoutedCommand NewDialogCommand = new RoutedCommand();
 		public static readonly RoutedCommand SaveDialogCommand = new RoutedCommand();
@@ -98,7 +97,6 @@ namespace DrawShape
 			currentChosenBrokenLineId = -1;
 			currentDrawingBrokenLine = new List<Point>();
             currentBorderColor = new SolidColorBrush(Colors.Black);
-			
 			StartDrawingTicker();
 			mouseLoc = new Point();
 			currentMode = Mode.Drawing;
@@ -160,7 +158,7 @@ namespace DrawShape
 		{
 			if (DrawingPanel.Children.Count > 0 && !pictureIsSaved)
 			{
-				FormBl.SaveHexagons(ref DrawingPanel);
+				FormBl.SaveBrokenLines(ref DrawingPanel);
 				pictureIsSaved = true;
 			}
 		}
@@ -174,19 +172,19 @@ namespace DrawShape
 		{
 			try
 			{
-				var hexagons = FormBl.ReadHexagons();
-				if (hexagons == null)
+				var brokenLines = FormBl.ReadBrokenLines();
+				if (brokenLines == null)
 				{
 					return;
 				}
 
 				currentChosenBrokenLineId = -1;
 				DrawingPanel.Children.Clear();
-				foreach (var hexagon in hexagons)
+				foreach (var brokenLine in brokenLines)
 				{
-					DrawingPanel.Children.Add(hexagon.ToPolygon());
-					var newMenuItem = new MenuItem { Header = hexagon.Name };
-					newMenuItem.Click += SetCurrentHexagonFromMenu;
+					DrawingPanel.Children.Add(brokenLine.ToPolygon());
+					var newMenuItem = new MenuItem { Header = brokenLine.Name };
+					newMenuItem.Click += SetCurrentBrokenLineFromMenu;
 					ShapesMenu.Items.Add(newMenuItem);
 				}
 
@@ -199,12 +197,12 @@ namespace DrawShape
 			}
 		}
 
-		/// <summary>
-		/// Sets selected hexagon from hexagons menu.
-		/// </summary>
-		/// <param name="sender">The Hexagon menu that the action is for.</param>
-		/// <param name="e">Arguments that the implementor of this event may find useful.</param>
-		private void SetCurrentHexagonFromMenu(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Sets selected BrokenLine from BrokenLines menu.
+        /// </summary>
+        /// <param name="sender">The BrokenLine menu that the action is for.</param>
+        /// <param name="e">Arguments that the implementor of this event may find useful.</param>
+        private void SetCurrentBrokenLineFromMenu(object sender, RoutedEventArgs e)
 		{
 			var menuItem = e.OriginalSource as MenuItem;
 			try
@@ -236,16 +234,16 @@ namespace DrawShape
 		private void StartDrawingTicker()
 		{
 			dhsTimer.Interval = TimeSpan.FromMilliseconds(10);
-			dhsTimer.Tick += DrawingHexagonSide;
+			dhsTimer.Tick += DrawingBrokenLineSide;
 			dhsTimer.Start();
 		}
 
-		/// <summary>
-		/// Draws current hexagons side.
-		/// </summary>
-		/// <param name="sender">The <see cref="Canvas"/> that the action is for.</param>
-		/// <param name="e">Arguments that the implementor of this event may find useful.</param>
-		private void DrawingHexagonSide(object sender, EventArgs e)
+        /// <summary>
+        /// Draws current BrokenLines side.
+        /// </summary>
+        /// <param name="sender">The <see cref="Canvas"/> that the action is for.</param>
+        /// <param name="e">Arguments that the implementor of this event may find useful.</param>
+        private void DrawingBrokenLineSide(object sender, EventArgs e)
 		{
 			if (currentDrawingBrokenLine.Count > 0)
 			{
@@ -274,16 +272,16 @@ namespace DrawShape
 		/// <param name="e">Arguments that the implementor of this event may find useful.</param>
 		private void SetMovingMode(object sender, RoutedEventArgs e)
 		{
-			ClearExpectedHexagon();
+			ClearExpectedBrokenLine();
 			currentMode = Mode.Moving;
 		}
 
-		/// <summary>
-		/// Function to draw hexagon on canvas point by point.
-		/// </summary>
-		/// <param name="sender">The <see cref="Canvas"/> that the action is for</param>
-		/// <param name="e">Arguments that the implementor of this event may find useful.</param>
-		private void ProcessDrawingOfHexagon(object sender, MouseButtonEventArgs e)
+        /// <summary>
+        /// Function to draw BrokenLine on canvas point by point.
+        /// </summary>
+        /// <param name="sender">The <see cref="Canvas"/> that the action is for</param>
+        /// <param name="e">Arguments that the implementor of this event may find useful.</param>
+        private void ProcessDrawingOfBrokenLine(object sender, MouseButtonEventArgs e)
 		{
 			if (currentMode == Mode.Drawing)
 			{
@@ -363,36 +361,36 @@ namespace DrawShape
 
 				if (currentDrawingBrokenLine.Count == 6)
 				{
-					var hexagon = new BrokenLine(
-						$"Hexagon_{currentChosenBrokenLineId + 1}",
+					var brokenLine = new BrokenLine(
+						$"BrokenLine_{currentChosenBrokenLineId + 1}",
 						currentDrawingBrokenLine,
 						currentBorderColor).ToPolygon();
 					currentChosenBrokenLineId++;
 					pictureIsSaved = false;
-					hexagon.KeyDown += MoveHexagonWithKeys;
-					DrawingPanel.Children.Add(hexagon);
-					Canvas.SetLeft(hexagon, 0);
-					Canvas.SetTop(hexagon, 0);
-					var newMenuItem = new MenuItem { Header = hexagon.Name };
-					newMenuItem.Click += SetCurrentHexagonFromMenu;
+					brokenLine.KeyDown += MoveBrokenLineWithKeys;
+					DrawingPanel.Children.Add(brokenLine);
+					Canvas.SetLeft(brokenLine, 0);
+					Canvas.SetTop(brokenLine, 0);
+					var newMenuItem = new MenuItem { Header = brokenLine.Name };
+					newMenuItem.Click += SetCurrentBrokenLineFromMenu;
 					ShapesMenu.Items.Add(newMenuItem);
-					ClearExpectedHexagon();
+					ClearExpectedBrokenLine();
 				}
 			}
 		}
 
-		/// <summary>
-		/// Function to move hexagon on canvas using arrow keys.
-		/// </summary>
-		/// <param name="sender">The <see cref="Canvas"/> that the action is for</param>
-		/// <param name="e">Arguments that the implementor of this event may find useful.</param>
-		private void MoveHexagonWithKeys(object sender, KeyEventArgs e)
+        /// <summary>
+        /// Function to move BrokenLine on canvas using arrow keys.
+        /// </summary>
+        /// <param name="sender">The <see cref="Canvas"/> that the action is for</param>
+        /// <param name="e">Arguments that the implementor of this event may find useful.</param>
+        private void MoveBrokenLineWithKeys(object sender, KeyEventArgs e)
 		{
 			try
 			{
 				if (Keyboard.IsKeyDown(Key.Escape))
 				{
-					ClearExpectedHexagon();
+					ClearExpectedBrokenLine();
 				}
 				else
 				{
@@ -463,7 +461,7 @@ namespace DrawShape
 			{
 				if (!(selectedPolygon is Polygon p))
 				{
-					throw new InvalidDataException("selected shape is not hexagon");
+					throw new InvalidDataException("selected shape is not broken line");
 				}
 				
 				Canvas.SetLeft(p, e.GetPosition(DrawingPanel).X - clickV.X);
@@ -501,10 +499,10 @@ namespace DrawShape
 			}
 		}
 
-		/// <summary>
-		/// Function to clear stored properties of currently drawn hexagon.
-		/// </summary>
-		private void ClearExpectedHexagon()
+        /// <summary>
+        /// Function to clear stored properties of currently drawn BrokenLine.
+        /// </summary>
+        private void ClearExpectedBrokenLine()
 		{
 			currentDrawingBrokenLine.Clear();
 			DrawingPanel.Children.Remove(expectedBrokenLine);

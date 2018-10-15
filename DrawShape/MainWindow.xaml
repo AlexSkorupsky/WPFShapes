@@ -7,7 +7,7 @@
 		mc:Ignorable="d"
 		Name="WindowMain"
 		Title="Draw Hexagon" Height="450" Width="800" MinHeight="100" MinWidth="200"
-		KeyDown="MoveHexagonWithKeys">
+		KeyDown="MoveBrokenLineWithKeys">
 	<Grid>
 		<Menu
 			HorizontalAlignment="Left"
@@ -82,8 +82,8 @@
 				MouseUp="DrawingPanel_MouseUp"
 				MouseMove="DrawingPanel_MouseMove"
 				MouseDown="MyPoly_MouseDown"
-		        KeyDown="MoveHexagonWithKeys"
-		        MouseLeftButtonUp="ProcessDrawingOfHexagon"
+		        KeyDown="MoveBrokenLineWithKeys"
+		        MouseLeftButtonUp="ProcessDrawingOfBrokenLine"
 				HorizontalAlignment="Center"
 				Height="{Binding Path=ActualHeight, ElementName=WindowMain}"
 				Margin="0,25,0,0"

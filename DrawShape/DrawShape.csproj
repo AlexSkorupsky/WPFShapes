@@ -57,9 +57,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="BL\FormBL.cs" />
-    <Compile Include="Classes\Point.cs" />
-    <Compile Include="Utils\Serialization.cs" />
-    <Compile Include="Utils\Util.cs" />
+    <Compile Include="Entities\Point.cs" />
+    <Compile Include="Tools\Serialization.cs" />
+    <Compile Include="Tools\Util.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -68,7 +68,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Classes\BrokenLine.cs" />
+    <Compile Include="Entities\BrokenLine.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

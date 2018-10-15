@@ -4,8 +4,8 @@ using System.Windows.Media;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 
-using DrawShape.Utils;
-using Point = DrawShape.Classes.Point;
+using DrawShape.Tools;
+using Point = DrawShape.Entities.Point;
 
 namespace DrawShape.Test.Utils
 {
