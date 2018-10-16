@@ -78,6 +78,11 @@ namespace DrawShape
 		/// </summary>
 		private static Shape selectedPolyline;
 
+        /// <summary>
+		/// Holds count of points in broken line
+		/// </summary>
+        public static int countOfPoints = 10;
+
 		/// <summary>
 		/// Shortcuts. Each variable holds a key shortcut for an action. 
 		/// </summary>
@@ -134,12 +139,44 @@ namespace DrawShape
 			dragging = false;
 		}
 
-		/// <summary>
-		/// Event handler for mouse button click.
-		/// </summary>
-		/// <param name="sender">The button New that the action is for.</param>
-		/// <param name="e">Arguments that the implementor of this event may find useful.</param>
-		private void NewButton_Click(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Event handler for count button click.
+        /// Set value of count of points = 5
+        /// </summary>
+        /// <param name="sender">The button New that the action is for.</param>
+        /// <param name="e">Arguments that the implementor of this event may find useful.</param>
+        private void CountButton5_Click(object sender, RoutedEventArgs e)
+        {
+            countOfPoints = 5;
+        }
+
+        /// <summary>
+        /// Event handler for count button click.
+        /// Set value of count of points = 10
+        /// </summary>
+        /// <param name="sender">The button New that the action is for.</param>
+        /// <param name="e">Arguments that the implementor of this event may find useful.</param>
+        private void CountButton10_Click(object sender, RoutedEventArgs e)
+        {
+            countOfPoints = 10;
+        }
+
+        /// <summary>
+        /// Event handler for count button click.
+        /// Set value of count of points = 15
+        /// </summary>
+        /// <param name="sender">The button New that the action is for.</param>
+        /// <param name="e">Arguments that the implementor of this event may find useful.</param>
+        private void CountButton15_Click(object sender, RoutedEventArgs e)
+        {
+            countOfPoints = 15;
+        }
+        /// <summary>
+        /// Event handler for mouse button click.
+        /// </summary>
+        /// <param name="sender">The button New that the action is for.</param>
+        /// <param name="e">Arguments that the implementor of this event may find useful.</param>
+        private void NewButton_Click(object sender, RoutedEventArgs e)
 		{
 			if (!pictureIsSaved)
 			{
@@ -285,7 +322,7 @@ namespace DrawShape
 		{
 			if (currentMode == Mode.Drawing)
 			{
-				if (currentDrawingBrokenLine.Count < 66)
+				if (currentDrawingBrokenLine.Count < MainWindow.countOfPoints)
 				{
 					var mousePos = e.GetPosition(DrawingPanel);
 					
@@ -308,7 +345,7 @@ namespace DrawShape
 					expectedBrokenLine.Points.Add(new System.Windows.Point(mousePos.X, mousePos.Y));
 				}
 
-				if (currentDrawingBrokenLine.Count == 16)
+				if (currentDrawingBrokenLine.Count == MainWindow.countOfPoints)
 				{
 					var brokenLine = new BrokenLine(
 						$"BrokenLine_{currentChosenBrokenLineId + 1}",

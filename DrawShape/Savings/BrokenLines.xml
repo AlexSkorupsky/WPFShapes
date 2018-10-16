@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<ArrayOfBrokenLine xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <BrokenLine Name="BrokenLine_0">
+    <ColorBorder R="0" G="0" B="0" />
+    <Points>
+      <Point X="505" Y="170" />
+      <Point X="434" Y="81" />
+      <Point X="328" Y="151" />
+      <Point X="285" Y="90" />
+      <Point X="257" Y="167" />
+      <Point X="167" Y="150" />
+      <Point X="185" Y="244" />
+      <Point X="292" Y="222" />
+      <Point X="284" Y="309" />
+      <Point X="361" Y="244" />
+    </Points>
+  </BrokenLine>
+  <BrokenLine Name="BrokenLine_1">
+    <ColorBorder R="0" G="0" B="0" />
+    <Points>
+      <Point X="431" Y="332" />
+      <Point X="444" Y="245" />
+      <Point X="388" Y="214" />
+      <Point X="384" Y="162" />
+      <Point X="333" Y="185" />
+      <Point X="258" Y="116" />
+      <Point X="359" Y="51" />
+      <Point X="374" Y="126" />
+      <Point X="548" Y="105" />
+      <Point X="476" Y="198" />
+    </Points>
+  </BrokenLine>
+  <BrokenLine Name="BrokenLine_2">
+    <ColorBorder R="0" G="0" B="0" />
+    <Points>
+      <Point X="336" Y="207" />
+      <Point X="334" Y="270" />
+      <Point X="487" Y="207" />
+      <Point X="463" Y="347" />
+      <Point X="287" Y="235" />
+      <Point X="529" Y="122" />
+      <Point X="622" Y="242" />
+      <Point X="448" Y="76" />
+      <Point X="403" Y="134" />
+      <Point X="166" Y="75" />
+    </Points>
+  </BrokenLine>
+</ArrayOfBrokenLine>

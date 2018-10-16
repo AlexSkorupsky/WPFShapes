@@ -95,10 +95,7 @@ namespace DrawShape.Entities
 			{
 				throw new NullReferenceException("points are null");
 			}
-			if (points.Count != 16)
-			{
-				throw new InvalidDataException("hexagon requires six points");
-			}
+			
 			Name = name;
 			Points = points.ToArray();
 			var colorBorder = ((SolidColorBrush)borderBrush).Color;
@@ -115,10 +112,7 @@ namespace DrawShape.Entities
 			{
 				throw new NullReferenceException("points are null");
 			}
-			if (Points.Length != 16)
-			{
-				throw new InvalidDataException("broken line requires six points");
-			}
+			
 			var Polyline = new Polyline();
 			foreach (var point in Points)
 			{

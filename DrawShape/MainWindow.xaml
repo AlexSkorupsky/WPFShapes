@@ -64,8 +64,34 @@
 			          Height="25"
 			          Width="50"/>
             
-			
-			<Grid
+            <MenuItem x:Name="CountOfPoints"
+			          Header="Count of points"
+			          Height="25"
+			          Width="100">
+                <MenuItem
+					Header="5"
+				          HorizontalAlignment="Left"
+				          Height="20"
+				          Width="135"
+				          Click="CountButton5_Click"
+				          InputGestureText="Ctrl+N"/>
+                <MenuItem
+					Header="10"
+				          HorizontalAlignment="Left"
+				          Height="20"
+				          Width="135"
+				          Click="CountButton10_Click"
+				          InputGestureText="Ctrl+S"/>
+                <MenuItem
+					Header="15"
+				          HorizontalAlignment="Left"
+				          Height="20"
+				          Width="135"
+				          Click="CountButton15_Click"
+				          InputGestureText="Ctrl+O"/>
+            </MenuItem>
+
+            <Grid
 				Width="55"
 				MouseDown="SetBorderColor">
 				<TextBlock
