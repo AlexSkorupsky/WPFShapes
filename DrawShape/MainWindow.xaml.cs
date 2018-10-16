@@ -74,9 +74,9 @@ namespace DrawShape
 		private System.Windows.Point clickV;
 
 		/// <summary>
-		/// Holds properties of selected polygon
+		/// Holds properties of selected Polyline
 		/// </summary>
-		private static Shape selectedPolygon;
+		private static Shape selectedPolyline;
 
 		/// <summary>
 		/// Shortcuts. Each variable holds a key shortcut for an action. 
@@ -182,7 +182,7 @@ namespace DrawShape
 				DrawingPanel.Children.Clear();
 				foreach (var brokenLine in brokenLines)
 				{
-					DrawingPanel.Children.Add(brokenLine.ToPolygon());
+					DrawingPanel.Children.Add(brokenLine.ToPolyline());
 					var newMenuItem = new MenuItem { Header = brokenLine.Name };
 					newMenuItem.Click += SetCurrentBrokenLineFromMenu;
 					ShapesMenu.Items.Add(newMenuItem);
@@ -285,61 +285,10 @@ namespace DrawShape
 		{
 			if (currentMode == Mode.Drawing)
 			{
-				if (currentDrawingBrokenLine.Count < 6)
+				if (currentDrawingBrokenLine.Count < 66)
 				{
 					var mousePos = e.GetPosition(DrawingPanel);
-					for (var i = currentDrawingBrokenLine.Count - 2; i > 0; i--)
-					{
-						if (Util.AreSidesIntersected(
-							new System.Windows.Point(mousePos.X, mousePos.Y),
-							new System.Windows.Point(
-								expectedBrokenLine.Points[currentDrawingBrokenLine.Count - 1].X,
-								expectedBrokenLine.Points[currentDrawingBrokenLine.Count - 1].Y),
-							expectedBrokenLine.Points[i],
-							expectedBrokenLine.Points[i - 1]))
-						{
-							return;
-						}
-					}
 					
-					for (var i = currentDrawingBrokenLine.Count - 1; i >= 0; i--)
-					{
-						if (new System.Windows.Point(mousePos.X, mousePos.Y) == expectedBrokenLine.Points[i])
-						{
-							return;
-						}
-					}
-
-					if (currentDrawingBrokenLine.Count == 5)
-					{
-						for (var i = currentDrawingBrokenLine.Count - 2; i > 1; i--)
-						{
-							if (Util.AreSidesIntersected(
-								new System.Windows.Point(mousePos.X, mousePos.Y),
-								new System.Windows.Point(
-									expectedBrokenLine.Points[0].X,
-									expectedBrokenLine.Points[0].Y),
-								expectedBrokenLine.Points[i],
-								expectedBrokenLine.Points[i - 1]))
-							{
-								return;
-							}
-						}
-					}
-					
-					if (currentDrawingBrokenLine.Count > 2 && Util.Orientation(
-							new System.Windows.Point(mousePos.X, mousePos.Y),
-							new System.Windows.Point(
-								expectedBrokenLine.Points[currentDrawingBrokenLine.Count - 1].X,
-								expectedBrokenLine.Points[currentDrawingBrokenLine.Count - 1].Y),
-							new System.Windows.Point(
-								expectedBrokenLine.Points[currentDrawingBrokenLine.Count - 1].X,
-								expectedBrokenLine.Points[currentDrawingBrokenLine.Count - 2].Y))
-						== 0)
-					{
-						return;
-					}
-
 					currentDrawingBrokenLine.Add(new Point(mousePos.X, mousePos.Y));
 					if (expectedBrokenLine == null)
 					{
@@ -359,12 +308,12 @@ namespace DrawShape
 					expectedBrokenLine.Points.Add(new System.Windows.Point(mousePos.X, mousePos.Y));
 				}
 
-				if (currentDrawingBrokenLine.Count == 6)
+				if (currentDrawingBrokenLine.Count == 16)
 				{
 					var brokenLine = new BrokenLine(
 						$"BrokenLine_{currentChosenBrokenLineId + 1}",
 						currentDrawingBrokenLine,
-						currentBorderColor).ToPolygon();
+						currentBorderColor).ToPolyline();
 					currentChosenBrokenLineId++;
 					pictureIsSaved = false;
 					brokenLine.KeyDown += MoveBrokenLineWithKeys;
@@ -434,7 +383,7 @@ namespace DrawShape
 							newLoc.X -= 5;
 						}
 
-						if (!((DrawingPanel.Children[currentChosenBrokenLineId] as Shape) is Polygon p))
+						if (!((DrawingPanel.Children[currentChosenBrokenLineId] as Shape) is Polyline p))
 						{
 							throw new InvalidDataException("can't move null shape");
 						}
@@ -459,7 +408,7 @@ namespace DrawShape
 		{
 			if (dragging && currentMode == Mode.Moving)
 			{
-				if (!(selectedPolygon is Polygon p))
+				if (!(selectedPolyline is Polyline p))
 				{
 					throw new InvalidDataException("selected shape is not broken line");
 				}
@@ -487,9 +436,9 @@ namespace DrawShape
 			{
 				for (var i = DrawingPanel.Children.Count - 1; i >= 0; i--)
 				{
-					selectedPolygon = DrawingPanel.Children[i] as Shape;
-					clickV = e.GetPosition(selectedPolygon);
-					if (Util.PointIsInBrokenLine(new Point(clickV.X, clickV.Y), selectedPolygon as Polygon))
+					selectedPolyline = DrawingPanel.Children[i] as Shape;
+					clickV = e.GetPosition(selectedPolyline);
+					if (Util.PointIsInBrokenLine(new Point(clickV.X, clickV.Y), selectedPolyline as Polyline))
 					{
 						currentChosenBrokenLineId = i;
 						dragging = true;

@@ -95,7 +95,7 @@ namespace DrawShape.Entities
 			{
 				throw new NullReferenceException("points are null");
 			}
-			if (points.Count != 6)
+			if (points.Count != 16)
 			{
 				throw new InvalidDataException("hexagon requires six points");
 			}
@@ -106,42 +106,42 @@ namespace DrawShape.Entities
 		}
 
         /// <summary>
-        /// Function to convert broken line type to polygon type.
+        /// Function to convert broken line type to polyline type.
         /// </summary>
-        /// <returns>broken line shape of type <see cref="Polygon"/></returns>
-        public Polygon ToPolygon()
+        /// <returns>broken line shape of type <see cref="Polyline"/></returns>
+        public Polyline ToPolyline()
 		{
 			if (Points == null)
 			{
 				throw new NullReferenceException("points are null");
 			}
-			if (Points.Length != 6)
+			if (Points.Length != 16)
 			{
 				throw new InvalidDataException("broken line requires six points");
 			}
-			var polygon = new Polygon();
+			var Polyline = new Polyline();
 			foreach (var point in Points)
 			{
-				polygon.Points.Add(new System.Windows.Point(point.X, point.Y));
+				Polyline.Points.Add(new System.Windows.Point(point.X, point.Y));
 			}
-			polygon.Stroke = new SolidColorBrush(Color.FromRgb((byte)ColorBorder.R, (byte)ColorBorder.G, (byte)ColorBorder.B));
-			polygon.StrokeThickness = 2;
-			polygon.Name = Name;
-			return polygon;
+			Polyline.Stroke = new SolidColorBrush(Color.FromRgb((byte)ColorBorder.R, (byte)ColorBorder.G, (byte)ColorBorder.B));
+			Polyline.StrokeThickness = 2;
+			Polyline.Name = Name;
+			return Polyline;
 		}
 
         /// <summary>
-        /// Function to convert polygon type to broken line type.
+        /// Function to convert polyline type to broken line type.
         /// </summary>
         /// <returns>broken line shape of type <see cref="BrokenLine"/></returns>
-        public static BrokenLine FromPolygon(Polygon polygon)
+        public static BrokenLine FromPolyline(Polyline polyline)
 		{
 			var points = new List<Point>();
-			foreach (var point in polygon.Points)
+			foreach (var point in polyline.Points)
 			{
 				points.Add(new Point(point.X, point.Y));
 			}
-			return new BrokenLine(polygon.Name, points, polygon.Stroke);
+			return new BrokenLine(polyline.Name, points, polyline.Stroke);
 		}
 	}
 }

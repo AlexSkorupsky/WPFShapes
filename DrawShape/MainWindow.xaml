@@ -63,12 +63,13 @@
 			          Header="Shapes"
 			          Height="25"
 			          Width="50"/>
+            
 			
 			<Grid
 				Width="55"
 				MouseDown="SetBorderColor">
 				<TextBlock
-					Text="Stroke"/>
+					Text="Color"/>
 				<Rectangle x:Name="ColorPickerBorder"
 				           HorizontalAlignment="Right"
 				           VerticalAlignment="Center"

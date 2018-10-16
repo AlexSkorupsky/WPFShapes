@@ -60,9 +60,9 @@ namespace DrawShape.BL
 			var brokenLines = new List<BrokenLine>();
 			foreach (var item in canvas.Children)
 			{
-				if (item is Polygon polygon)
+				if (item is Polyline polyline)
 				{
-					brokenLines.Add(BrokenLine.FromPolygon(polygon));
+					brokenLines.Add(BrokenLine.FromPolyline(polyline));
 				}
 			}
 
