@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using DrawShape.Tools;
 using Point = DrawShape.Entities.Point;
 
-namespace DrawShape.Test.Utils
+namespace DrawShape.Test.Tools
 {
 	public class UtilTest
 	{
@@ -16,17 +16,6 @@ namespace DrawShape.Test.Utils
 		public void TestOnSegment(System.Windows.Point p, System.Windows.Point q, System.Windows.Point r)
 		{
 			Assert.True(Util.OnSegment(p, q, r));
-		}
-
-		[Theory]
-		[MemberData(nameof(ConstructorData.SuccessDataPoints), MemberType = typeof(ConstructorData))]
-		public void TestAreSidesIntersected(
-            System.Windows.Point firstSidePointOne,
-			System.Windows.Point firstSidePointTwo,
-			System.Windows.Point secondSidePointOne,
-			System.Windows.Point secondSidePointTwo)
-		{
-            Assert.True(Util.AreSidesIntersected(firstSidePointOne, firstSidePointTwo, secondSidePointOne, secondSidePointTwo));
 		}
 
 		[Theory]
