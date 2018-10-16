@@ -4,8 +4,11 @@ using System.Collections.Generic;
 
 using DrawShape.Entities;
 
-namespace DrawShape.Test.Classes
+namespace DrawShape.Test.Entities
 {
+    /// <summary>
+	/// Class to represent test of point.
+	/// </summary>
 	public class PointTest
 	{
 		[Theory]
