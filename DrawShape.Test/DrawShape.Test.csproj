@@ -66,11 +66,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\HexagonTest.cs" />
-    <Compile Include="Classes\PointTest.cs" />
+    <Compile Include="Entities\BrokenLineTest.cs" />
+    <Compile Include="Entities\PointTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utils\SerializationTest.cs" />
-    <Compile Include="Utils\UtilTest.cs" />
+    <Compile Include="Tools\SerializationTest.cs" />
+    <Compile Include="Tools\UtilTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
